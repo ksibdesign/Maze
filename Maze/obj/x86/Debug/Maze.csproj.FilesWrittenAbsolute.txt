@@ -1,0 +1,5 @@
+/Users/ksibley/Desktop/KSib/C#/Maze/Maze/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/ksibley/Desktop/KSib/C#/Maze/Maze/bin/Debug/Maze.exe.mdb
+/Users/ksibley/Desktop/KSib/C#/Maze/Maze/bin/Debug/Maze.exe
+/Users/ksibley/Desktop/KSib/C#/Maze/Maze/obj/x86/Debug/Maze.exe
+/Users/ksibley/Desktop/KSib/C#/Maze/Maze/obj/x86/Debug/Maze.exe.mdb
