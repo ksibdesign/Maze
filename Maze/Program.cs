@@ -55,7 +55,7 @@ public class MazeGame
 		int count = 0;
 		foreach (string element in directions)
 		{
-			Console.WriteLine("Direction[" + count + "]: " + element);
+			Console.WriteLine("0Direction[" + count + "]: " + element);
 			count++;
 		}
 	}
