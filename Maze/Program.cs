@@ -40,10 +40,6 @@ public class MazeGame
 		//Console.WriteLine("List Length: " + listTest.Length);
 
 
-		getDirections();
-
-
-
 		//generateMaze(ref exitDistanceFromStart, ref mazeWidth, ref mazeHeight, ref maze, ref numRooms);
 		//mazeClear(ref maze);
 
