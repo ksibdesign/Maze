@@ -2,7 +2,7 @@
 
 namespace Maze
 {
-	class MainClass
+	class Program
 	{
 		public static void Main(string[] args)
 		{
@@ -28,6 +28,7 @@ public class MazeGame
 		// Created by Kevin Sibley
 		//Console.Clear();
 
+
 		mazeWidth = 20;
 		mazeHeight = 20;
 		numRooms = 6 - 1;
@@ -51,7 +52,7 @@ public class MazeGame
 		int count = 0;
 		foreach (string element in directions)
 		{
-			Console.WriteLine("0Direction[" + count + "]: " + element);
+			Console.WriteLine("Direction[" + count + "]: " + element);
 			count++;
 		}
 	}
