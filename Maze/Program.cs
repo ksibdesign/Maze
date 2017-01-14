@@ -2,7 +2,7 @@
 
 namespace Maze
 {
-	class Program
+	class MainClass
 	{
 		public static void Main(string[] args)
 		{
@@ -23,11 +23,13 @@ public class MazeGame
 
 	string[,] maze;
 
+	int[] mazeStartPOS = new int[2];
+	int[] mazeEndPOS = new int[2];
+
 	public void mazeInit()
 	{
 		// Created by Kevin Sibley
 		//Console.Clear();
-
 
 		mazeWidth = 20;
 		mazeHeight = 20;
@@ -37,16 +39,13 @@ public class MazeGame
 		maze = new string[mazeWidth, mazeHeight];
 
 
-		//string[] maze = new string[mazeWidth*mazeHeight];
-		//Console.WriteLine("List Length: " + listTest.Length);
-
-
-		//generateMaze(ref exitDistanceFromStart, ref mazeWidth, ref mazeHeight, ref maze, ref numRooms);
+		generateMaze();
 		//mazeClear(ref maze);
 
 	}
-	public static void getDirections()
+	public void getDirections()
 	{
+		// LOOK INT ENUM FOR THIS
 		string[] directions = new string[16] { "", "N", "E", "S", "W", "NE", "SE", "SW", "NW", "EW", "NS", "SEW", "NSW", "NEW", "NSE", "NSEW" };
 		string[] directionsDec = new string[16] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
 		int count = 0;
@@ -56,7 +55,7 @@ public class MazeGame
 			count++;
 		}
 	}
-	/*public static void getMazeExit(ref int mazeStartPOS, ref int mazeEndPOS, ref int exitDistanceFromStart, ref int mazeWidth, ref int mazeHeight, ref string[] maze)
+	public void getMazeExit()
 	{
 	  int tempPOS; //Temporary position for parsing
 	  int x; //Finds amount remaining in row before new row
@@ -64,17 +63,26 @@ public class MazeGame
 	  int z; // Max number to find
 
 	  //for (int count = 0; count < maze.Length; count++)
-	  {
+	  //{
 	  //  maze[count] = "X";
 	  //}
-	  //REFACTORED
+
 	  for (int countWidth = 0; countWidth <= mazeWidth; countWidth++)
 	  {
-		for (int countHeight = 0; countHeight <= mazeHeight; countHeight++)
-		{
-		  maze[countWidth, countHeight] = "X";
-		}
+			for (int countHeight = 0; countHeight <= mazeHeight; countHeight++)
+			{
+			  maze[countWidth, countHeight] = "X";
+			}
 	  }
+		for (int y = 0; )
+		for (int x = 1; mazeStartPOS[0] + x < mazeWidth && x <= 10; x++)
+		{
+			if (mazeStartPOS[0] + x < mazeWidth) {
+				maze[]
+			}
+		}
+
+
 	  x = (mazeStartPOS % mazeWidth);
 	  int temp = mazeStartPOS / mazeWidth;
 	  if (temp == (mazeStartPOS - exitDistanceFromStart) / mazeWidth && (mazeStartPOS - exitDistanceFromStart) / mazeWidth != 0)
@@ -181,12 +189,16 @@ public class MazeGame
 	  maze[mazeEndPOS] = "*";
 
 	  printMaze(ref maze, ref mazeWidth);
-	}*/
-	/*public static void getMazeStart(ref int mazeStartPOS, ref int mazeWidth, ref int mazeHeight)
+	}
+	public void getMazeStart()
 	{
 	  Random rnd = new Random();
-	  mazeStartPOS = rnd.Next(mazeWidth*mazeHeight);
-	}*/
+	  mazeStartPOS[0] = rnd.Next(mazeWidth);
+	  mazeStartPOS[1] = rnd.Next(mazeWidth);
+
+		Console.WriteLine("mazeStartPOS[0] = " + mazeStartPOS[0]);
+		Console.WriteLine("mazeStartPOS[1] = " + mazeStartPOS[1]);
+	}
 	/*public static void printMaze(ref string[] maze, ref int mazeWidth)
 	{
 	  int count2 = 0;
@@ -207,12 +219,11 @@ public class MazeGame
 		maze[i] = " ";
 	  }
 	}*/
-	public static void generateMaze(ref int exitDistanceFromStart, ref int mazeWidth, ref int mazeHeight, ref string[,] maze, ref int numRooms)
+	public void generateMaze()
 	{
-		string[] mazeStartPOS;
-		string[] mazeEndPOS;
-		//getMazeStart(ref mazeStartPOS, ref mazeWidth, ref mazeHeight);
-		//getMazeExit(ref mazeStartPOS, ref mazeEndPOS, ref exitDistanceFromStart, ref mazeWidth, ref mazeHeight, ref maze);
+
+		getMazeStart();
+		getMazeExit();
 
 
 
