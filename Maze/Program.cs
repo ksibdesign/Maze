@@ -43,313 +43,232 @@ public class MazeGame
 		//mazeClear(ref maze);
 
 	}
-	public void getDirections()
+	enum directions {
+		None,
+		North,
+		East,
+		South,
+		West,
+		NorthEast,
+		SouthEast,
+		SouthWest,
+		NorthWest,
+		EastWest,
+		NorthSouth,
+		SouthEastWest,
+		NorthSouthWest,
+		NorthEastWest,
+		NorthSouthEast,
+		NorthSouthEastWest
+	}
+	public void getMazeStart()
 	{
-		// LOOK INT ENUM FOR THIS
-		string[] directions = new string[16] { "", "N", "E", "S", "W", "NE", "SE", "SW", "NW", "EW", "NS", "SEW", "NSW", "NEW", "NSE", "NSEW" };
-		string[] directionsDec = new string[16] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
-		int count = 0;
-		foreach (string element in directions)
-		{
-			Console.WriteLine("Direction[" + count + "]: " + element);
-			count++;
-		}
+		Random rnd = new Random();
+		mazeStartPOS[0] = rnd.Next(mazeWidth);
+		mazeStartPOS[1] = rnd.Next(mazeHeight);
+
+		Console.WriteLine("mazeStartPOS[0] = " + mazeStartPOS[0]);
+		Console.WriteLine("mazeStartPOS[1] = " + mazeStartPOS[1]);
+
 	}
 	public void getMazeExit()
 	{
-	  int tempPOS; //Temporary position for parsing
-	  int x; //Finds amount remaining in row before new row
-	  int y; // Min number to find
-	  int z; // Max number to find
+	  int x1;
+		int x2;
+		int y;
 
-	  //for (int count = 0; count < maze.Length; count++)
-	  //{
-	  //  maze[count] = "X";
-	  //}
+		for (int invert = 0; invert < 2; invert++)
+		{
+			for (int count = 0; count <= exitDistanceFromStart; count++)
+			{
+				if (invert == 0)
+				{
+					y = mazeStartPOS[1] - count;
+				}
+				else
+				{
+					y = mazeStartPOS[1] + count;
+				}
+				if (y >= 0 && y < mazeWidth)
+				{
+					if (mazeStartPOS[0] - exitDistanceFromStart + count >= 0 )
+					{
+						x1 = mazeStartPOS[0] - exitDistanceFromStart + count;
+					}
+					else
+					{
+						x1 = 0;
+					}
 
-	  for (int countWidth = 0; countWidth <= mazeWidth; countWidth++)
+					if (mazeStartPOS[0] + exitDistanceFromStart - count < mazeWidth )
+					{
+						x2 = mazeStartPOS[0] + exitDistanceFromStart - count;
+					}
+					else
+					{
+						x2 = mazeWidth - 1;
+					}
+
+					for (int count2 = x1; count2 <= x2; count2++)
+				  {
+						maze[count2, y] = " ";
+				  }
+
+				}
+			}
+		}
+
+		Random rnd = new Random();
+		mazeEndPOS[0] = rnd.Next(mazeWidth);
+		mazeEndPOS[1] = rnd.Next(mazeHeight);
+
+	  while (maze[mazeEndPOS[0], mazeEndPOS[1]] != "X"){
+			mazeEndPOS[0] = rnd.Next(mazeWidth);
+			mazeEndPOS[1] = rnd.Next(mazeHeight);
+	  }
+
+		mazeClear();
+	}
+	public void printMaze()
+	{
+		for (int y = 0; y < mazeHeight; y++)
+		{
+			for (int x = 0; x < mazeWidth; x++)
+			{
+				Console.Write(maze[x,y] + " ");
+				if (x == mazeWidth - 1)
+				{
+					Console.WriteLine();
+				}
+			}
+		}
+	}
+	public void mazeClear()
+	{
+		for (int countWidth = 0; countWidth < mazeWidth; countWidth++)
 	  {
-			for (int countHeight = 0; countHeight <= mazeHeight; countHeight++)
+			for (int countHeight = 0; countHeight < mazeHeight; countHeight++)
+			{
+			  maze[countWidth, countHeight] = " ";
+			}
+	  }
+	}
+	public void generateMaze()
+	{
+		for (int countWidth = 0; countWidth < mazeWidth; countWidth++)
+	  {
+			for (int countHeight = 0; countHeight < mazeHeight; countHeight++)
 			{
 			  maze[countWidth, countHeight] = "X";
 			}
 	  }
-		for (int y = 0; )
-		for (int x = 1; mazeStartPOS[0] + x < mazeWidth && x <= 10; x++)
-		{
-			if (mazeStartPOS[0] + x < mazeWidth) {
-				maze[]
-			}
-		}
-
-
-	  x = (mazeStartPOS % mazeWidth);
-	  int temp = mazeStartPOS / mazeWidth;
-	  if (temp == (mazeStartPOS - exitDistanceFromStart) / mazeWidth && (mazeStartPOS - exitDistanceFromStart) / mazeWidth != 0)
-	  {
-		y = mazeStartPOS - exitDistanceFromStart;
-	  }
-	  else if ((mazeStartPOS - x) >= 0)
-	  {
-		y = mazeStartPOS - x;
-	  }
-	  else
-	  {
-		y = mazeStartPOS;
-	  }
-	  if (temp == (mazeStartPOS + exitDistanceFromStart) / mazeWidth )
-	  {
-		z = mazeStartPOS + exitDistanceFromStart;
-	  }
-	  else
-	  {
-		z = mazeStartPOS + (mazeWidth - (x + 1));
-	  }
-
-	  for (int count = y; count <= z; count++)
-	  {
-		maze[count] = " ";
-	  }
-
-
-	  for (int count2 = 0; count2 < 2; count2++)
-	  {
-		for (int count = 1; count <= exitDistanceFromStart; count++)
-		{
-		  if (count2 == 0)
-		  {
-			tempPOS = mazeStartPOS - (count * mazeWidth);
-		  }
-		  else
-		  {
-			tempPOS = mazeStartPOS + (count * mazeWidth);
-		  }
-
-		  temp = tempPOS / mazeWidth;
-		  if (tempPOS >= 0 && tempPOS <= maze.Length - 1)
-		  {
-			if (temp == (tempPOS - (exitDistanceFromStart - count)) / mazeWidth )
-			{
-			  y = tempPOS - exitDistanceFromStart + count;
-			}
-			else if (tempPOS - x >= 0)
-			{
-			  y = tempPOS - x;
-			}
-			else
-			{
-			  y = tempPOS;
-			}
-
-			if (temp == (tempPOS + (exitDistanceFromStart - count)) / mazeWidth )
-			{
-			  // 0 == 0
-			  z = tempPOS + exitDistanceFromStart - count;
-			}
-			else if (tempPOS + (mazeWidth - (x + 1)) <= maze.Length - 1)
-			{
-			  z = tempPOS + (mazeWidth - (x + 1));
-			}
-			else
-			{
-			  z = tempPOS;
-			}
-
-			// Makes sure that only size of area gets touched and not out of bounds
-			if (y < 0)
-			{
-			  y = 0;
-			}
-			if (z >= maze.Length)
-			{
-			  z = maze.Length - 1;
-			}
-
-			//Console.WriteLine(y + " - " + tempPOS + " - " + z);
-
-			for (int a = y; a <= z; a++)
-			{
-			  maze[a] = " ";
-			}
-		  }
-		}
-	  }
-	  Random rnd = new Random();
-	  mazeEndPOS = rnd.Next(mazeWidth*mazeHeight);
-	  while (maze[mazeEndPOS] != "X"){
-		mazeEndPOS = rnd.Next(mazeWidth*mazeHeight);
-	  }
-	  maze[mazeStartPOS] = "#";
-	  maze[mazeEndPOS] = "*";
-
-	  printMaze(ref maze, ref mazeWidth);
-	  mazeClear(ref maze);
-
-	  maze[mazeStartPOS] = "#";
-	  maze[mazeEndPOS] = "*";
-
-	  printMaze(ref maze, ref mazeWidth);
-	}
-	public void getMazeStart()
-	{
-	  Random rnd = new Random();
-	  mazeStartPOS[0] = rnd.Next(mazeWidth);
-	  mazeStartPOS[1] = rnd.Next(mazeWidth);
-
-		Console.WriteLine("mazeStartPOS[0] = " + mazeStartPOS[0]);
-		Console.WriteLine("mazeStartPOS[1] = " + mazeStartPOS[1]);
-	}
-	/*public static void printMaze(ref string[] maze, ref int mazeWidth)
-	{
-	  int count2 = 0;
-	  foreach (string element in maze)
-	  {
-		Console.Write(maze[count2] + " ");
-		if ((count2 + 1) % mazeWidth == 0)
-		{
-		  Console.WriteLine();
-		}
-		count2++;
-	  }
-	}*/
-	/*public static void mazeClear(ref string[] maze)
-	{
-	  for(int i = 0; i < maze.Length; i++)
-	  {
-		maze[i] = " ";
-	  }
-	}*/
-	public void generateMaze()
-	{
 
 		getMazeStart();
 		getMazeExit();
 
+		maze[mazeStartPOS[0], mazeStartPOS[1]] = "#";
+	  maze[mazeEndPOS[0], mazeEndPOS[1]] = "*";
 
+		mazePathfinding();
 
-		/*
-		int tempPOS = mazeStartPOS;
-		bool validN;
-		bool validE;
-		bool validS;
-		bool validW;
-		int validAmt = 3;
+		printMaze();
 
+	}
+	public void mazePathfinding()
+	{
+		int[] tempPOS = new int[2] {mazeStartPOS[0],mazeStartPOS[1]};
+		int availableDirections = 0;
+		int tempDir;
 
-		int currentRoomWidth;
-		int currentRoomHeight;
+		bool N = false;
+		bool S = false;
+		bool E = false;
+		bool W = false;
 
-		for (int currentRoom = 0; currentRoom <= numRooms; currentRoom++)
+		Random rnd = new Random();
+
+		Console.WriteLine("TempPOS[0]: " + tempPOS[0]);
+		Console.WriteLine("TempPOS[1]: " + tempPOS[1]);
+		for(int temp = 0; temp < 10; temp++)
 		{
-		  Random rnd = new Random();
-		  int tempRoomStart;
-		  int tempRoom;
-		  bool validRoom;
-
-		  currentRoomHeight = rnd.Next(2, mazeWidth / 4 + 1);
-		  currentRoomWidth = rnd.Next(2, mazeWidth / 4 + 1);
-		  Console.WriteLine("Current Room " + currentRoom + " - Width: " + currentRoomWidth + " & Height: " + currentRoomHeight);
-		  tempRoomStart = rnd.Next(mazeWidth*mazeHeight);
-		  tempRoom = tempRoomStart;
-
-
-		  int tempRoomSize = 0;
-		  while (tempRoomSize < currentRoomHeight * currentRoomWidth)
-		  {
-			if (tempRoom != mazeStartPOS && tempRoom != mazeEndPOS && tempRoom >= 0 && tempRoom < mazeWidth*mazeHeight)
+			if (tempPOS[0] + 1 < mazeWidth && maze[tempPOS[0] + 1, tempPOS[1]] == " ")
 			{
-			  validRoom = true;
-			  // I STILL NEED TO WRAP ROOM WITH AND CHECK
+				availableDirections++;
+				E = true;
 			}
-			tempRoomSize++;
-			tempRoom++;
-
-		  }
-		}*/
-
-
-
-
-
-		/*while (tempPOS != mazeEndPOS)
-		{
-		  if (tempPOS + mazeWidth < maze.Length && maze[tempPOS + mazeWidth] == " ")
-		  {
-			validS = true;
-			validAmt++;
-		  }
-		  else
-		  {
-			validS = false;
-		  }
-		  if (tempPOS + 1 < maze.Length && maze[tempPOS + 1] == " " && tempPOS + 1 < tempPOS + (mazeWidth - (tempPOS % mazeWidth)))
-		  {
-			validE = true;
-			validAmt++;
-		  }
-		  else
-		  {
-			validE = false;
-		  }
-		  if (tempPOS - mazeWidth >= 0 && maze[tempPOS - mazeWidth] == " ")
-		  {
-			validN = true;
-			validAmt++;
-		  }
-		  else
-		  {
-			validN = false;
-		  }
-		  if (tempPOS - 1 >= 0 && maze[tempPOS - 1] == " " && tempPOS - 1 >= tempPOS - (tempPOS % mazeWidth))
-		  {
-			validW = true;
-			validAmt++;
-		  }
-		  else
-		  {
-			validW = false;
-		  }
-		  Random rnd = new Random();
-		  validAmt = rnd.Next(validAmt);
-
-		  if(validAmt == 0)
-		  {
-			if(validN = true)
+			if (tempPOS[0] - 1 >= 0 && maze[tempPOS[0] - 1, tempPOS[1]] == " ")
 			{
-			  tempPOS = tempPOS - mazeWidth;
+				availableDirections++;
+				W = true;
 			}
-			else if (validE == true)
+			if (tempPOS[1] + 1 < mazeHeight && maze[tempPOS[0], tempPOS[1] + 1] == " ")
 			{
-			  tempPOS = tempPOS + 1;
+				availableDirections++;
+				S = true;
 			}
-			else if (validS == true)
+			if (tempPOS[1] - 1 >=0 && maze[tempPOS[0], tempPOS[1] - 1] == " ")
 			{
-			  tempPOS = tempPOS + mazeWidth;
+				availableDirections++;
+				N = true;
 			}
-			else if (validW == true)
+			Console.WriteLine("Avail Dir:" + availableDirections);
+
+			//STARTING TO PATHFIND
+			tempDir = rnd.Next(availableDirections);
+
+			// THERE HAS TO BE A BETTER WAY
+
+			if (tempDir == 0)
 			{
-			  tempPOS = tempPOS - 1;
+				if (N == true)
+				{
+
+				}
+				else if (S == true)
+				{
+
+				}
+				else if (E == true)
+				{
+
+				}
+				else
+				{
+
+				}
+			}
+			else if (tempDir == 1)
+			{
+				if (S == true)
+				{
+
+				}
+				else if (E == true)
+				{
+
+				}
+				else
+				{
+
+				}
+			}
+			else if (tempDir == 2)
+			{
+				if (E == true)
+				{
+
+				}
+				else
+				{
+
+				}
+			}
+			else
+			{
+
 			}
 
 
-		  }
-		  else if (validAmt == 1)
-		  {
-
-		  }
-		  else if (validAmt == 2)
-		  {
-
-		  }
-		  else if (validAmt == 3)
-		  {
-
-		  }
-		  else
-		  {
-			Console.WriteLine("NOT A VALID DIRECTION");
-		  }
-		}*/
-
+		}
 	}
 }
